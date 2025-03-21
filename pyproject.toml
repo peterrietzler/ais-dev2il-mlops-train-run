@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dev2il-mlops-train-run"
+version = "0.0.1"
+requires-python = ">=3.13.0"
+dependencies = [
+    "scikit-learn==1.6.1",
+    "pandas==2.2.3",
+    "click==8.1.8",
+    "fastapi==0.115.11",
+    "uvicorn==0.34.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ipykernel==6.29.5",
+    "notebook==7.3.3",
+    "matplotlib==3.10.1",
+    "seaborn==0.13.2",
+]
+test = [
+    "pytest==8.3.5",
+]
+
+[project.scripts]
+wine-color-predictor = "wine_color_predictor.cli_predictor:predict"
+
+[tool.setuptools]
+packages = ["wine_color_predictor"]
