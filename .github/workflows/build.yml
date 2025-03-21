@@ -30,14 +30,14 @@ jobs:
         run: |
           pytest
   
-  build-and-push-cli-predictor-image: 
+  build-and-push-cli-predictor-image:
     runs-on: ubuntu-latest
     needs: test
     permissions:
       contents: read
       packages: write
-      attestations: write
-      id-token: write
+      #attestations: write
+      #id-token: write
       
     steps:
       - name: Checkout
@@ -50,11 +50,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      #- name: Extract metadata (tags, labels) for Docker
+      #  id: meta
+      #  uses: docker/metadata-action@v5
+      #  with:
+      #    images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push Docker image
         id: push
@@ -63,12 +63,12 @@ jobs:
           context: .
           file: ./docker/cli-predictor/Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}          
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:1.0.0
+          #labels: ${{ steps.meta.outputs.labels }}          
 
-      - name: Generate artifact attestation
-        uses: actions/attest-build-provenance@v2
-        with:
-          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
-          subject-digest: ${{ steps.push.outputs.digest }}
-          push-to-registry: true          
+      #- name: Generate artifact attestation
+      #  uses: actions/attest-build-provenance@v2
+      #  with:
+      #    subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+      #    subject-digest: ${{ steps.push.outputs.digest }}
+      #    push-to-registry: true          
