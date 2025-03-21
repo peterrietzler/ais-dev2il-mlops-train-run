@@ -92,6 +92,25 @@ curl -X 'POST' \
   -d @data/winequality-rest-api-predictor-input.json | jq '.'
 ```
 
+## Working With the GitHub Packages Container Registry
+
+### Using the Terminal 
+
+In order to authenticate, you need to create a personal access token. Follow the steps as outlined here: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-with-a-personal-access-token-classic
+
+Build the Docker image by running (replace peterrietzler with your GitHub name)
+`docker build -f docker/cli-predictor/Dockerfile -t ghcr.io/peterrietzler/wine-color-cli-predictor:1.0.0 .`
+
+And finally push it by running (replace peterrietzler with your GitHub name)
+`docker push ghcr.io/peterrietzler/wine-color-cli-predictor:1.0.0`
+
+You can then run it, using 
+`docker run --rm ghcr.io/peterrietzler/wine-color-cli-predictor:1.0.0 data/winequality-cli-predictor-input.csv`
+
+### Using GitHub Actions
+
+See https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images#publishing-images-to-github-packages
+
 ## Background Material 
 
 - More info on `pyproject.toml`: https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
