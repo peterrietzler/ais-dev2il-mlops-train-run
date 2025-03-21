@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dev2il-mlops-train-run"
-version = "1.0.0"
+version = "1.0.1"
 requires-python = ">=3.13.0"
 dependencies = [
     "scikit-learn==1.6.1",
